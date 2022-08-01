@@ -5,7 +5,41 @@ let mongoose = require('mongoose');
 
 const { body, validationResult } = require('express-validator');
 
-// Display sign up page on GET.
+// GET request for account sign up.
 exports.sign_up_get = function(req, res, next) {
     res.render('sign_up');
 }
+
+// POST request for account sign up form.
+exports.sign_up_post = [
+    body('username', 'A username is required.')
+    .trim()
+    .isLength({ min : 3, max : 20 })
+    .withMessage("Username must be between 3 and 20 characters long."),
+
+    body('password', 'A password is required.')
+    .trim()
+    .isLength({ min : 8 })
+    .withMessage("Password must be 8 characters or greater in length.")
+    .escape(),
+
+    // Process request once data validation completed.
+    (req, res, next) => {
+        const errors = validationResult(req);
+        console.log(errors);
+        console.log(req.body);
+
+        // Re-render sign_up view if errors are present.
+        if (!errors.isEmpty()) {
+            res.render('sign_up', {
+                persistant_username : req.body.username,
+                persistant_password : req.body.password,
+                errors : errors.array()
+            });
+        }
+
+        else {
+            res.send("there are no errors (=");
+        }
+    }
+]

@@ -2,6 +2,7 @@
 
 let async = require('async');
 let mongoose = require('mongoose');
+let bcryptjs = require('bcryptjs');
 
 const { body, validationResult } = require('express-validator');
 
@@ -42,15 +43,24 @@ exports.sign_up_post = [
             return;
         }
 
-        let user = new User({
-            user_name : req.body.username,
-            password : req.body.password
-        });
+        // If validation critera are met, encrypt password and send data to database!
+        bcryptjs.hash(req.body.password, 10, (err, hashedPassword) => {
+            if (err) {
+                return next(err);
+            }
 
-        // Save user information to database.
-        user.save(function(err) {
-            if (err) { return next(err); }
-            res.redirect("/");
-        })
+            else {
+                let user = new User({
+                    user_name : req.body.username,
+                    password : hashedPassword
+                }).save(err => {
+                    if (err) {
+                        return next(err);
+                    }
+
+                    res.redirect("/");
+                });
+            }
+        });
     }
 ]

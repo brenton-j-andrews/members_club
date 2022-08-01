@@ -5,6 +5,8 @@ let mongoose = require('mongoose');
 
 const { body, validationResult } = require('express-validator');
 
+let User = require("../models/user");
+
 // GET request for account sign up.
 exports.sign_up_get = function(req, res, next) {
     res.render('sign_up');
@@ -12,6 +14,7 @@ exports.sign_up_get = function(req, res, next) {
 
 // POST request for account sign up form.
 exports.sign_up_post = [
+
     body('username', 'A username is required.')
     .trim()
     .isLength({ min : 3, max : 20 })
@@ -36,10 +39,18 @@ exports.sign_up_post = [
                 persistant_password : req.body.password,
                 errors : errors.array()
             });
+            return;
         }
 
-        else {
-            res.send("there are no errors (=");
-        }
+        let user = new User({
+            user_name : req.body.username,
+            password : req.body.password
+        });
+
+        // Save user information to database.
+        user.save(function(err) {
+            if (err) { return next(err); }
+            res.redirect("/");
+        })
     }
 ]

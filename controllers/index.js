@@ -8,6 +8,7 @@ const { body, validationResult } = require('express-validator');
 
 let User = require("../models/user");
 
+
 // GET request for account sign up.
 exports.sign_up_get = function(req, res, next) {
     res.render('sign_up');
@@ -31,7 +32,7 @@ exports.sign_up_post = [
     (req, res, next) => {
         const errors = validationResult(req);
         console.log(errors);
-        console.log(req.body);
+        console.log(req.body.username);
 
         // Re-render sign_up view if errors are present.
         if (!errors.isEmpty()) {
@@ -43,24 +44,48 @@ exports.sign_up_post = [
             return;
         }
 
-        // If validation critera are met, encrypt password and send data to database!
-        bcryptjs.hash(req.body.password, 10, (err, hashedPassword) => {
-            if (err) {
-                return next(err);
-            }
+        else {
+            let user = new User({
+                username : req.body.username,
+                password : req.body.password
+            });
+            
+            user.save(err => {
+                if (err) {
+                    return next(err);
+                }
 
-            else {
-                let user = new User({
-                    user_name : req.body.username,
-                    password : hashedPassword
-                }).save(err => {
-                    if (err) {
-                        return next(err);
-                    }
+                res.redirect("/");
+            });
+        }
 
-                    res.redirect("/");
-                });
-            }
-        });
+        // // If validation critera are met, encrypt password and send data to database!
+        // bcryptjs.hash(req.body.password, 10, (err, hashedPassword) => {
+        //     if (err) {
+        //         return next(err);
+        //     }
+
+        //     else {
+        //         let user = new User({
+        //             user_name : req.body.username,
+        //             password : hashedPassword
+        //         }).save(err => {
+        //             if (err) {
+        //                 return next(err);
+        //             }
+
+        //             res.redirect("/");
+        //         });
+        //     }
+        // });
     }
 ]
+
+// GET request for user login.
+exports.user_login_get = function(req, res, next) {
+    res.render('login');
+}
+
+exports.user_login_post = function(req, res, next) {
+    res.send("sup bitchez, this is the login post page I guess...");
+}

@@ -1,0 +1,23 @@
+extends layout 
+
+block content
+    a(href="/") Click here to return home.
+
+    h1 Login Form:
+
+
+    form(method='POST' action='/login')
+      
+        label(for="username") Username: 
+            input#username(type="text", name = "username", value = persistant_username ? persistant_username : '')
+
+        label(for="password") Password:
+            input#password(type="text", name = "password" value = persistant_password ? persistant_password : '') 
+
+        button(type="submit") Log In
+
+        //- If errors, display below.
+        if errors
+            ul 
+                for error in errors 
+                    li=error.msg

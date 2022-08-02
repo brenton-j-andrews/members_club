@@ -4,3 +4,11 @@ block content
   h1= title
   p Welcome to #{title}
   a(href="/sign-up") Click here to sign up!
+  br
+  a(href="/login") Click here to log in!
+
+  if user 
+    h1 Hello user! 
+
+  else 
+    h1 Hello guest!

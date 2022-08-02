@@ -19,8 +19,10 @@ mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
+
 // IMPORT MODELS.
 let User = require("./models/user");
+
 
 // VIEW ENGINE SET UP.
 var app = express();
@@ -34,8 +36,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // PASSPORT / SESSION CONFIG.
-app.use(session({ secret: "cats", resave: false, saveUninitialized: true }))
-
 passport.use(
   new LocalStrategy((username, password, done) => {
     User.findOne({ username: username }, (err, user) => {
@@ -48,47 +48,24 @@ passport.use(
       if (user.password !== password) {
         return done(null, false, { message: "Incorrect password" });
       }
-      console.log(user);
+
       return done(null, user);
     });
   })
 );
 
-passport.serializeUser(function(user, done) {
-  done(null, user.id);
-});
-
-passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
-    done(err, user);
-  });
-});
-
+app.use(session({ secret: "hmmm", resave: false, saveUninitialized: true }))
+passport.serializeUser((user, done) => done(null, user.id));
+passport.deserializeUser((id, done) => User.findById(id, (err, user) => done(err, user)));
 
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended : false }));
 
-// SITE ROUTING!
 
-app.get("/", (req, res) => {
-  console.log("are we here now?");
-  console.log(req.user);
-  res.render("index", { user: req.user });
-});
-
-
-
-// POST request after login sent.
-app.post(
-  "/login",
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/"
-  })
-);
-
+// SITE ROUTING.
 app.use('/', indexRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

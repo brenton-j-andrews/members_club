@@ -3,6 +3,7 @@
 let async = require('async');
 let mongoose = require('mongoose');
 let bcryptjs = require('bcryptjs');
+var passport = require('passport');
 
 const { body, validationResult } = require('express-validator');
 
@@ -86,6 +87,19 @@ exports.user_login_get = function(req, res, next) {
     res.render('login');
 }
 
-exports.user_login_post = function(req, res, next) {
-    res.send("sup bitchez, this is the login post page I guess...");
+// POST request for user login.
+exports.user_login_post = passport.authenticate('local', {
+        successRedirect: '/',
+        failureRedirect: '/'
+});
+
+// GET request for user log out. Don't need POST request!
+exports.user_logout_get = function(req, res, next) {
+    req.logout(function (err) {
+        if (err) {
+            return next(err);
+        }
+
+        res.redirect('/');
+    })
 }

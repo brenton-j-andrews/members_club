@@ -8,8 +8,6 @@ let controller = require("../controllers/index");
 
 // GET home page.
 router.get('/', function(req, res, next) {
-  console.log("below this: ")
-  console.log(req.user);
   res.render('index', { user : req.user });
 });
 
@@ -25,6 +23,8 @@ router.get('/sign-up', controller.sign_up_get);
 // POST request for user sign up page.
 router.post('/sign-up', controller.sign_up_post);
 
+// GET request for user log out.
+router.get('/log-out', controller.user_logout_get);
 
 
 module.exports = router;

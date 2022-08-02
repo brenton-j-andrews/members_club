@@ -11,6 +11,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local');
 let session = require("express-session");
 var indexRouter = require('./routes/index');
+let bcryptjs = require('bcryptjs');
 
 
 // SET UP MONGOOSE CONNECTION.
@@ -45,11 +46,19 @@ passport.use(
       if (!user) {
         return done(null, false, { message: "Incorrect username" });
       }
-      if (user.password !== password) {
-        return done(null, false, { message: "Incorrect password" });
-      }
 
-      return done(null, user);
+      bcryptjs.compare(password, user.password, (err, res) => {
+
+        if (res) {
+          return done(null, user);
+        } 
+
+        else {
+          return done(null, false, { message : "Incorrect Password"});
+        }
+
+      })
+
     });
   })
 );

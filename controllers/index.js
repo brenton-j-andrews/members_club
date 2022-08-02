@@ -45,40 +45,27 @@ exports.sign_up_post = [
             return;
         }
 
+        // If validation critera are met, encrypt password and send data to database!
         else {
-            let user = new User({
-                username : req.body.username,
-                password : req.body.password
-            });
-            
-            user.save(err => {
+            bcryptjs.hash(req.body.password, 10, (err, hashedPassword) => {
                 if (err) {
                     return next(err);
                 }
 
-                res.redirect("/");
-            });
-        }
+                else {
+                    let user = new User({
+                        username : req.body.username,
+                        password : hashedPassword
+                    }).save( err => {
+                        if (err) {
+                            return next(err);
+                        }
 
-        // // If validation critera are met, encrypt password and send data to database!
-        // bcryptjs.hash(req.body.password, 10, (err, hashedPassword) => {
-        //     if (err) {
-        //         return next(err);
-        //     }
-
-        //     else {
-        //         let user = new User({
-        //             user_name : req.body.username,
-        //             password : hashedPassword
-        //         }).save(err => {
-        //             if (err) {
-        //                 return next(err);
-        //             }
-
-        //             res.redirect("/");
-        //         });
-        //     }
-        // });
+                        res.redirect('/');
+                    });
+                }
+            }
+        )}
     }
 ]
 

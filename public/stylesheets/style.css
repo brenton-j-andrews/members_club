@@ -83,6 +83,7 @@ a {
 }
 
 /* Greetings box. */
+
 .page-greeting {
   max-width: 80%;
 
@@ -90,13 +91,14 @@ a {
   font-size: 24px;
   border: 3px groove black;
   background-color: lightblue;
-
+  text-align: center;
 
   margin: 25px 0px 25px 0px;
   padding: 10px;
 }
 
 /* Message Section Styling */
+
 .messages {
   display: flex;
   flex-direction: column;
@@ -126,4 +128,15 @@ a {
 .message-container-right {
   border-left: 3px groove black;
   padding-left: 15px;
+  width: 100%;
+}
+
+.message-container-right-upper {
+  height: 60%;
+  border-bottom: 3px groove black;
+}
+
+.message-title {
+  font-size: 18px;
+  font-weight: bold;
 }

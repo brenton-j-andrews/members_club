@@ -17,3 +17,15 @@ block content
   else 
     h2 Hello guest!
     
+
+  div(class="messages")
+    h1 Messages
+
+    each message in message_list 
+      div(class="message-box")
+        p #{message.title}
+        p #{message.message}
+        
+
+        if user 
+          p #{message.author.username}

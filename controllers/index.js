@@ -51,6 +51,10 @@ exports.sign_up_post = [
     .withMessage("Password must be 8 characters or greater in length.")
     .escape(),
 
+    body('confirm-password', 'Confirm password must have the same value as the password field.')
+    .trim()
+    .custom((value, { req }) => value === req.body.password),
+
     // Process request once data validation completed.
     (req, res, next) => {
         const errors = validationResult(req);

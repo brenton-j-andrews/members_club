@@ -12,7 +12,11 @@ block content
 
         div.form-group
             label(for="password") Password:
-                input#password(type="text", name = "password" value = persistant_password ? persistant_password : '') 
+                input#password(type="password", name = "password" value = '') 
+
+        div.form-group
+            label(for="confirm-password") Confirm Password: 
+                input#confirm-password(type="password", name = "confirm-password" value= '')
 
         button(type="submit") Create Account
 

@@ -54,6 +54,7 @@ passport.use(
         } 
 
         else {
+          console.log("wrong password dumbass!");
           return done(null, false, { message : "Incorrect Password"});
         }
 

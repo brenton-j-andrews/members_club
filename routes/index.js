@@ -7,9 +7,7 @@ var router = express.Router();
 let controller = require("../controllers/index");
 
 // GET home page.
-router.get('/', function(req, res, next) {
-  res.render('index', { user : req.user });
-});
+router.get('/', controller.home_page_get);
 
 // GET request for user login page.
 router.get('/login', controller.user_login_get);

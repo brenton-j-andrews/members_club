@@ -9,6 +9,10 @@ const { body, validationResult } = require('express-validator');
 
 let User = require("../models/user");
 
+// GET request for home page.
+exports.home_page_get = function(req, res, next) {
+    res.render('index', { user : req.user });
+}
 
 // GET request for account sign up.
 exports.sign_up_get = function(req, res, next) {
@@ -32,8 +36,6 @@ exports.sign_up_post = [
     // Process request once data validation completed.
     (req, res, next) => {
         const errors = validationResult(req);
-        console.log(errors);
-        console.log(req.body.username);
 
         // Re-render sign_up view if errors are present.
         if (!errors.isEmpty()) {
@@ -77,7 +79,8 @@ exports.user_login_get = function(req, res, next) {
 // POST request for user login.
 exports.user_login_post = passport.authenticate('local', {
         successRedirect: '/',
-        failureRedirect: '/'
+        failureRedirect: '/login',
+        failureFlash : true
 });
 
 // GET request for user log out. Don't need POST request!

@@ -21,7 +21,6 @@ exports.home_page_get = function(req, res, next) {
             return next(err);
         }
 
-        console.log(output);
         res.render('index', {
              user : req.user,
              message_list : output
@@ -79,7 +78,8 @@ exports.sign_up_post = [
                 else {
                     let user = new User({
                         username : req.body.username,
-                        password : hashedPassword
+                        password : hashedPassword,
+                        isMember : false
                     }).save( err => {
                         if (err) {
                             return next(err);
@@ -168,6 +168,43 @@ exports.create_message_post = [
 
                 res.redirect('/');
             })
+        }
+    }
+]
+
+// -------------------------------------------------------------------------------------------------- MEMBER ACCESS FUNCTIONS.
+
+// GET request for member access page.
+exports.get_member_access = function(req, res, next) {
+    res.render('member_access');
+}
+
+// POST request for gaining member access.
+exports.post_member_access = [
+    body('members-pass', 'Incorrect password, access denied!')
+    .custom((value, { req }) => value === process.env.MEMBER_ACCESS_PASS),
+
+    (req, res, next) => {
+        const errors = validationResult(req);
+        console.log(req.user._id);
+        // If errors.
+        if (!errors.isEmpty()) {
+            res.redirect("/");
+        } 
+        
+        else {
+            User.findByIdAndUpdate(req.user._id,
+                {
+                    'isMember' : true
+                },
+
+                function(err, result) {
+                    if (err) {
+                        return next(err);
+                    }
+                    res.redirect('/');
+                })
+            
         }
     }
 ]

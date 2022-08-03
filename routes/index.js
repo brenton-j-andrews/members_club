@@ -1,5 +1,6 @@
 // WEBSITE ROUTING PAGE.
 
+const { Router } = require('express');
 var express = require('express');
 var router = express.Router();
 
@@ -34,6 +35,16 @@ router.get('/log-out', controller.user_logout_get);
 // GET request for creating message.
 router.get('/create-message', controller.create_message_get);
 
+// POST request for creating message.
 router.post('/create-message', controller.create_message_post);
+
+// -------------------------------------------------------------------------------------------------- MEMBER ACCESS ROUTES.
+
+// GET request for member access page.
+router.get('/member-access', controller.get_member_access);
+
+// POST request for gaining member access.
+router.post('/member-access', controller.post_member_access);
+
 
 module.exports = router;

@@ -1,0 +1,12 @@
+extends layout 
+
+block content 
+    h1 Members Access Page
+    p Enter the secret password below to get ALL members previlages.
+
+    form(method='POST' action='/member-access')
+
+        label(for="members-pass") Enter the secret members password here: 
+                input#members-pass(type="text", name = "members-pass", value = '')
+
+        button(type="submit") Submit

@@ -1,31 +1,41 @@
 extends layout
 
 block content
+  div(class="page-wrapper")
 
-  h1 Members Only Message Board
+    nav(class="navbar" )
+      a(href="/" class="navbar-title") Ye Olde Message Board
 
-  a(href="/sign-up") Click here to sign up!
-  br
-  a(href="/login") Click here to log in!
+      div(class="navbar-links")
+        if user 
+          a(href="create-message" class="navbar-link") Posteth a Message
+          a(href="/member-access" class="navbar-link") View Secrets...
+          a(href="/log-out" class="navbar-link") Logeth Out
 
-  if user 
-    h2 Hello #{user.username}!
-    a(href="create-message") Click here to create a new message.
-    br
-    a(href='log-out') LOG OUT!
+        else 
+          a(href="/login" class="navbar-link") Log In
+          a(href="/sign-up" class="navbar-link") Sign Up
 
-  else 
-    h2 Hello guest!
     
 
-  div(class="messages")
-    h1 Messages
+    div(class="page-greeting")
+      if user 
+        p Greetings #{user.username}, welcome to thy message board.
 
-    each message in message_list 
-      div(class="message-box")
-        p #{message.title}
-        p #{message.message}
-        
+      else 
+        p Greetings, Guest! Welcome to the Ye Olde Message Board. Create an account or log in to see more!
 
-        if user 
-          p #{message.author.username}
+
+    div(class="messages")
+
+      each message in message_list 
+
+        div(class="message-container")
+
+          div(class="message-container-left")
+            img(src="assets/images/king.jpeg" class="message-avatar")
+
+          div(class="message-container-right")
+            p #{message.title}
+            p #{message.message}
+            p Author: Anonymous...

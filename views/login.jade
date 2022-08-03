@@ -1,20 +1,29 @@
 extends layout 
 
 block content
-    h1 Login Form:
-    a(href="/") Click here to return home.
 
-    form(method='POST' action='/login')
-      
-        label(for="username") Username: 
-            input#username(type="text", name = "username", value = persistant_username ? persistant_username : '')
+    div(class="page-wrapper")
 
-        label(for="password") Password:
-            input#password(type="password", name = "password" value = '') 
+        nav(class="navbar" )
+            a(href="/" class="navbar-title") Login Form
 
-        button(type="submit") Log In
+            div(class="navbar-links")
+                a(href="/" class="navbar-link") Returneth Home
 
-        //- If errors, display below.
+        div(class="page-greeting")
+            p Fill out the form yonder to log in.
+            p Or click #[a(href="/sign-up") here] if you already have an account to sign in.
 
-        if (failureMessage)
-            p #{failureMessage}
+
+        form(method='POST' action='/login' class="log-in-form")
+
+            div.form-group
+                label(for="username" class="form-label") Username: 
+                input#username(type="text", name = "username", value = persistant_username ? persistant_username : '')
+            
+            div.form-group
+                label(for="password" class="form-label") Password:
+                input#password(type="password", name = "password" value = '') 
+
+            div.form-group
+                button(type="submit" class="form-button") Log In

@@ -1,6 +1,5 @@
 // WEBSITE CONTROLLER PAGE.
 
-let async = require('async');
 let mongoose = require('mongoose');
 let bcryptjs = require('bcryptjs');
 var passport = require('passport');
@@ -9,10 +8,14 @@ const { body, validationResult } = require('express-validator');
 
 let User = require("../models/user");
 
+
 // GET request for home page.
 exports.home_page_get = function(req, res, next) {
+    console.log(req.user);
     res.render('index', { user : req.user });
 }
+
+// ------------------------------------------------------------------------------------------------- AUTHENTICATION FUNCTIONS.
 
 // GET request for account sign up.
 exports.sign_up_get = function(req, res, next) {
@@ -87,7 +90,6 @@ exports.failed_login_get = function(req, res, next) {
     res.render('wrong_credentials');
 }
 
-
 // GET request for user log out. 
 exports.user_logout_get = function(req, res, next) {
     req.logout(function (err) {
@@ -98,3 +100,5 @@ exports.user_logout_get = function(req, res, next) {
         res.redirect('/');
     })
 }
+
+// -------------------------------------------------------------------------------------------------------- MESSAGE FUNCTIONS.

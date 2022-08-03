@@ -1,15 +1,18 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+
+  h1 Members Only Message Board
+
   a(href="/sign-up") Click here to sign up!
   br
   a(href="/login") Click here to log in!
 
   if user 
-    h1 Hello user! 
+    h2 Hello #{user.username}!
+    a(href="create-message") Click here to create a new message.
+    br
     a(href='log-out') LOG OUT!
 
   else 
-    h1 Hello guest!
+    h2 Hello guest!

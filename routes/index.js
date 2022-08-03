@@ -15,6 +15,9 @@ router.get('/login', controller.user_login_get);
 // POST request for user login page.
 router.post('/login', controller.user_login_post);
 
+// GET request for failed user login.
+router.get('/incorrect-credentials', controller.failed_login_get); 
+
 // GET request for user sign up page.
 router.get('/sign-up', controller.sign_up_get);
 

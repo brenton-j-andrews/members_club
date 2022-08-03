@@ -79,11 +79,16 @@ exports.user_login_get = function(req, res, next) {
 // POST request for user login.
 exports.user_login_post = passport.authenticate('local', {
         successRedirect: '/',
-        failureRedirect: '/login',
-        failureFlash : true
+        failureRedirect: '/incorrect-credentials'
 });
 
-// GET request for user log out. Don't need POST request!
+// GET request for failed user login.
+exports.failed_login_get = function(req, res, next) {
+    res.render('wrong_credentials');
+}
+
+
+// GET request for user log out. 
 exports.user_logout_get = function(req, res, next) {
     req.logout(function (err) {
         if (err) {

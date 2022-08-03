@@ -7,6 +7,7 @@ var passport = require('passport');
 const { body, validationResult } = require('express-validator');
 
 let User = require("../models/user");
+let Message = require("../models/message");
 
 
 // GET request for home page.
@@ -102,3 +103,40 @@ exports.user_logout_get = function(req, res, next) {
 }
 
 // -------------------------------------------------------------------------------------------------------- MESSAGE FUNCTIONS.
+
+// GET request for creating new message.
+exports.create_message_get = function(req, res, next) {
+    res.render('create_message');
+}
+
+exports.create_message_post = [
+    body('message_title', 'A message title is required!')
+    .trim()
+    .isLength({ min : 1, max : 20 })
+    .withMessage("Title must be between 3 and 20 characters long."),
+
+    body('message-content', 'Message content is required!')
+    .trim()
+    .isLength({ min : 3 })
+    .withMessage("Your message must be at least 3 characters long.")
+    .escape(),
+
+    // Process request once data validation completed.
+    (req, res, next) => {
+        console.log("we are here, don't worry!");
+        console.log(req.body);
+        console.log(req.body.message_title);
+        
+        const errors = validationResult(req);
+
+        // Re-render sign_up view if errors are present.
+        if (!errors.isEmpty()) {
+            res.render('create_message', {
+                persistant_title : 'test',
+                persistant_message : 'hmmmmmm',
+                errors : errors.array()
+            });
+            return;
+        }
+    }
+]

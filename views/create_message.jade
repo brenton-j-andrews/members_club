@@ -1,0 +1,23 @@
+extends layout 
+
+block content
+    h1 New Message Form:
+    a(href="/") Click here to return home.
+
+    form(method='POST' action='/create-message')
+      
+        label(for="message_title") Message Title: 
+            input#message_title( type="text", name = "message_title", value = persistant_title ? persistant_title : '')
+
+        label(for="message_content") Message Text:
+            input#message_content( type="text", name = "message_content", value = '') 
+
+        button(type="submit") Create Message
+
+
+    //- If errors, display below.
+
+    if errors 
+        ul 
+            for error in errors 
+                li!=error.msg

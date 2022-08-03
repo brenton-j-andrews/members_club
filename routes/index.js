@@ -9,6 +9,8 @@ let controller = require("../controllers/index");
 // GET home page.
 router.get('/', controller.home_page_get);
 
+// ------------------------------------------------------------------------------------------------- AUTHENTICATION ROUTES.
+
 // GET request for user login page.
 router.get('/login', controller.user_login_get);
 
@@ -27,5 +29,11 @@ router.post('/sign-up', controller.sign_up_post);
 // GET request for user log out.
 router.get('/log-out', controller.user_logout_get);
 
+// -------------------------------------------------------------------------------------------------------- MESSAGE ROUTES.
+
+// GET request for creating message.
+router.get('/create-message', controller.create_message_get);
+
+router.post('/create-message', controller.create_message_post);
 
 module.exports = router;

@@ -12,7 +12,6 @@ let Message = require("../models/message");
 
 // GET request for home page.
 exports.home_page_get = function(req, res, next) {
-    console.log(req.user);
     res.render('index', { user : req.user });
 }
 
@@ -109,13 +108,14 @@ exports.create_message_get = function(req, res, next) {
     res.render('create_message');
 }
 
+// POST request for creating new message.
 exports.create_message_post = [
     body('message_title', 'A message title is required!')
     .trim()
     .isLength({ min : 1, max : 20 })
     .withMessage("Title must be between 3 and 20 characters long."),
 
-    body('message-content', 'Message content is required!')
+    body('message_content', 'Message content is required!')
     .trim()
     .isLength({ min : 3 })
     .withMessage("Your message must be at least 3 characters long.")
@@ -123,20 +123,32 @@ exports.create_message_post = [
 
     // Process request once data validation completed.
     (req, res, next) => {
-        console.log("we are here, don't worry!");
-        console.log(req.body);
-        console.log(req.body.message_title);
-        
         const errors = validationResult(req);
 
         // Re-render sign_up view if errors are present.
         if (!errors.isEmpty()) {
             res.render('create_message', {
-                persistant_title : 'test',
-                persistant_message : 'hmmmmmm',
+                persistant_title : req.body.message_title,
+                persistant_message : req.body.message_content,
                 errors : errors.array()
             });
             return;
+        }
+
+        // If validation critera are met, create new message and send to the database.
+        else {
+            let message = new Message({
+                author: req.user._id,
+                title: req.body.message_title,
+                message: req.body.message_content,
+                timestamp: Date.now()
+            }).save( err => {
+                if (err) {
+                    return next(err);
+                }
+
+                res.redirect('/');
+            })
         }
     }
 ]

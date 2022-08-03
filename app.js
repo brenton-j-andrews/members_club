@@ -73,6 +73,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended : false }));
 
+// SAVE LOGGED IN USER FOR EASY ACCESS!
+app.use(function(req, res, next) {
+  res.locals.currentUser = req.user;
+  next();
+});
 
 // SITE ROUTING.
 app.use('/', indexRouter);

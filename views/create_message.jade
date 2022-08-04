@@ -1,18 +1,32 @@
 extends layout 
 
 block content
-    h1 New Message Form:
-    a(href="/") Click here to return home.
 
-    form(method='POST' action='/create-message')
-      
-        label(for="message_title") Message Title: 
-            input#message_title( type="text", name = "message_title", value = persistant_title ? persistant_title : '')
+    div(class="page-wrapper")
 
-        label(for="message_content") Message Text:
-            input#message_content( type="text", name = "message_content", value = '') 
+        nav(class="navbar")
+            a(href="/create-message" class="navbar-title") New Message Form
 
-        button(type="submit") Create Message
+            div(class="navbar-links")
+                a(href="/" class="navbar-link") Returneth Home
+
+        div(class="page-greeting")
+            p Fill out the form yonder to create a new message!
+            
+
+        form(method='POST' action='/create-message' class="log-in-form")
+        
+            div.form-group
+                label(for="message_title" class="form-label") Message Title: 
+                input#message_title( type="text", name = "message_title", value = persistant_title ? persistant_title : '')
+
+            div.form-group
+                label(for="message_content" class="form-label") Message Text:
+                textarea#message_content(name="message_content", cols="30", rows="10") 
+                //- input#message_content( type="textarea", name = "message_content", value = '') 
+
+            div.form-group
+                button(type="submit" class="form-button") Create Message
 
 
     //- If errors, display below.

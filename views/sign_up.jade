@@ -1,27 +1,39 @@
 extends layout 
 
 block content
-    a(href="/") Click here to return home.
-    h1 Fill out and submit the form below to create an account:
 
-    form(method='POST' action='')
+    div(class="page-wrapper")
 
-        div.form-group
-            label(for="username") Username: 
+        nav(class="navbar" )
+                a(href="/sign-up" class="navbar-title") Sign in Form
+
+                div(class="navbar-links")
+                    a(href="/" class="navbar-link") Returneth Home
+
+        div(class="page-greeting")
+            p Fill out and submit the form below to create an account.
+            p Already have an account? Click #[a(href="/login") here] to sign in.
+            
+
+        form(method='POST' action='' class="log-in-form")
+
+            div.form-group
+                label(for="username" class="form-label") Username: 
                 input#username(type="text", name = "username", value = persistant_username ? persistant_username : '')
 
-        div.form-group
-            label(for="password") Password:
+            div.form-group
+                label(for="password" class="form-label") Password:
                 input#password(type="password", name = "password" value = '') 
 
-        div.form-group
-            label(for="confirm-password") Confirm Password: 
+            div.form-group
+                label(for="confirm-password" class="form-label") Confirm Password: 
                 input#confirm-password(type="password", name = "confirm-password" value= '')
 
-        button(type="submit") Create Account
+            div.form-group
+                button(type="submit" class="form-button") Create Account
 
-    //- If errors, display below.
-    if errors
-        ul 
-            for error in errors 
-                li=error.msg
+        //- If errors, display below.
+        if errors
+            ul 
+                for error in errors 
+                    li=error.msg

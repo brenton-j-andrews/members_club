@@ -179,3 +179,9 @@ a {
   width: 25%;
   padding: 5px;
 }
+
+.member-access-riddle {
+  border-top: 3px groove black;
+  padding-top: 25px;
+  font-size: 32px;
+}

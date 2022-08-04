@@ -1,12 +1,26 @@
 extends layout 
 
 block content 
-    h1 Members Access Page
-    p Enter the secret password below to get ALL members previlages.
 
-    form(method='POST' action='/member-access')
+    div(class="page-wrapper")
 
-        label(for="members-pass") Enter the secret members password here: 
+        nav(class="navbar")
+                a(href="/member-access" class="navbar-title") Member Access
+
+                div(class="navbar-links")
+                    a(href="/" class="navbar-link") Returneth Home
+
+        div(class="page-greeting")
+            p Solve the riddle below to gain access to the secrets of the message board. Be careful though, the wrong answer spells peril. 
+
+            p(class="member-access-riddle") I have one and you have one. So do the woods, fields, streams and seas, fish, beasts and crops and everything else in this revolving world.
+   
+
+        form(method='POST' action='/member-access' class="log-in-form")
+
+            div.form-group
+                label(for="members-pass" class="form-label") Enter your answer to the riddle here, good luck! 
                 input#members-pass(type="text", name = "members-pass", value = '')
 
-        button(type="submit") Submit
+            div.form-group
+                button(type="submit" class="form-button") Submit

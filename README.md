@@ -16,7 +16,7 @@ This simple web application hosts a messaging board where a user can create / si
 
 To view project functionality without creating an account, here are two accounts for use:
 
-user: guest-user 
+user: guest-user  
 password: user12345 
 
 And the administrator account details:
@@ -38,6 +38,6 @@ This project gave me a chance to get more familiar with user authentication, pas
 
 #### Todo
   
-Form validators return hexidecimal for special characters rather than treating them like normal chars.  
-Add timestamps to each message. Experimented with moment.js and Pug but never wrapped it up.  
-Probably some other stuff...
+- Form validators return hexidecimal for special characters rather than treating them like normal chars.  
+- Add timestamps to each message. Experimented with moment.js and Pug but never wrapped it up. 
+- Give users the ability to have custom avatars. 

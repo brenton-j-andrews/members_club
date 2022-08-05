@@ -24,6 +24,8 @@ And the administrator account details:
 user: admin  
 password: aaaaxxxx
 
+And yes, I know these aren't good passwords for real use!
+
 ---
 
 #### Frameworks
@@ -41,3 +43,4 @@ This project gave me a chance to get more familiar with user authentication, pas
 - Form validators return hexidecimal for special characters rather than treating them like normal chars.  
 - Add timestamps to each message. Experimented with moment.js and Pug but never wrapped it up. 
 - Give users the ability to have custom avatars. 
+- Indicate that user solved the riddle incorrectly, the wrong answer is supposed to spell peril after all.

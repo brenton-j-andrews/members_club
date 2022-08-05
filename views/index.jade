@@ -2,15 +2,22 @@ extends layout
 
 block content
 
+  script 
+    
+
   div(class="page-wrapper")
 
     nav(class="navbar" )
       a(href="/" class="navbar-title") Ye Olde Message Board
 
       div(class="navbar-links")
+
         if user 
           a(href="create-message" class="navbar-link") Posteth a Message
-          a(href="/member-access" class="navbar-link") View Secrets...
+
+          if (!user.isMember)
+            a(href="/member-access" class="navbar-link") View Secrets...
+
           a(href="/log-out" class="navbar-link") Logeth Out
 
         else 
@@ -43,4 +50,11 @@ block content
               p #{message.message}
 
             div(class="message-container-right-lower")
-              p Posted by Anonymous.
+              if (user !== undefined && user.isMember)
+                p Posted by #{message.author.username}
+
+              else
+                p Posted by Anonymous.
+
+              //- if (user!== undefined && user.isAdmin)
+              a(href="/" class="form-button") Delete Message

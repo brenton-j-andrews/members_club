@@ -1,7 +1,6 @@
 // WEBSITE CONTROLLER PAGE.
 
 let mongoose = require('mongoose');
-let async = require('async');
 let bcryptjs = require('bcryptjs');
 var passport = require('passport');
 
@@ -20,6 +19,8 @@ exports.home_page_get = function(req, res, next) {
         if (err) {
             return next(err);
         }
+
+        console.log(output);
 
         res.render('index', {
              user : req.user,
@@ -79,7 +80,8 @@ exports.sign_up_post = [
                     let user = new User({
                         username : req.body.username,
                         password : hashedPassword,
-                        isMember : false
+                        isMember : false,
+                        isAdmin : true
                     }).save( err => {
                         if (err) {
                             return next(err);

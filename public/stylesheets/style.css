@@ -178,6 +178,7 @@ a {
 .form-button {
   width: 25%;
   padding: 5px;
+  font-family: link-font;
 }
 
 .member-access-riddle {

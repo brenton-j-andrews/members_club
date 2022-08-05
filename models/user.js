@@ -4,7 +4,8 @@ let Schema = mongoose.Schema;
 let UserSchema = new Schema({
     username : {type: String, required: true, maxLength: 50},
     password : {type: String, required: true},
-    isMember : false
+    isMember : {type: Boolean, required: true},
+    isAdmin : {type: Boolean, required: true}
 })
 
 // Generate virtual URL property for user page.

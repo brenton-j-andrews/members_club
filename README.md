@@ -1,6 +1,6 @@
 
 ### Ye Olde' Message Board
-
+![Demo_image](public/assets/images/project_img.png)
 ---
 
 View the project live [here](https://ye-olde-message-board.herokuapp.com).

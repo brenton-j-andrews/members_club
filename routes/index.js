@@ -10,6 +10,9 @@ let controller = require("../controllers/index");
 // GET home page.
 router.get('/', controller.home_page_get);
 
+// POST home page -> Route for deleting messages by admin.
+router.post('/', controller.home_page_post);
+
 // ------------------------------------------------------------------------------------------------- AUTHENTICATION ROUTES.
 
 // GET request for user login page.

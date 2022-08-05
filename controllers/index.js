@@ -30,6 +30,19 @@ exports.home_page_get = function(req, res, next) {
     })
 }
 
+// POST request for home page. Delete message functionality.
+exports.home_page_post = function(req, res, next) {
+
+    Message.findByIdAndDelete(req.body.message_id, function(err, output) {
+        if (err) {
+            console.log("Error: " + err);
+        } else {
+            console.log("Message deleted.");
+            res.redirect("/");
+        }
+    })
+}
+
 // ------------------------------------------------------------------------------------------------- AUTHENTICATION FUNCTIONS.
 
 // GET request for account sign up.

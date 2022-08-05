@@ -50,11 +50,15 @@ block content
               p #{message.message}
 
             div(class="message-container-right-lower")
-              if (user !== undefined && user.isMember)
+              if (user && user.isMember)
                 p Posted by #{message.author.username}
 
               else
-                p Posted by Anonymous.
+                p Posted by Anonymous...
 
               //- if (user!== undefined && user.isAdmin)
-              a(href="/" class="form-button") Delete Message
+              div(class="delete-message")
+                form(action='/' method='POST')
+                  input#message_id(type="hidden", name="message_id" required="true", value=message._id)
+                  button(type="submit") Delete Message
+              

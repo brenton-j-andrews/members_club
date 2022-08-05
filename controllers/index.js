@@ -35,9 +35,8 @@ exports.home_page_post = function(req, res, next) {
 
     Message.findByIdAndDelete(req.body.message_id, function(err, output) {
         if (err) {
-            console.log("Error: " + err);
+            res.redirect("/")
         } else {
-            console.log("Message deleted.");
             res.redirect("/");
         }
     })
@@ -94,7 +93,7 @@ exports.sign_up_post = [
                         username : req.body.username,
                         password : hashedPassword,
                         isMember : false,
-                        isAdmin : true
+                        isAdmin : false
                     }).save( err => {
                         if (err) {
                             return next(err);
@@ -146,8 +145,8 @@ exports.create_message_get = function(req, res, next) {
 exports.create_message_post = [
     body('message_title', 'A message title is required!')
     .trim()
-    .isLength({ min : 1, max : 20 })
-    .withMessage("Title must be between 3 and 20 characters long."),
+    .isLength({ min : 1, max : 60 })
+    .withMessage("Title must be less than 60 characters in length."),
 
     body('message_content', 'Message content is required!')
     .trim()
@@ -201,7 +200,7 @@ exports.post_member_access = [
 
     (req, res, next) => {
         const errors = validationResult(req);
-        console.log(req.user._id);
+
         // If errors.
         if (!errors.isEmpty()) {
             res.redirect("/");

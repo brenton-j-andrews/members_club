@@ -31,6 +31,7 @@ block content
         //- If errors, display below.
 
         if errors 
-            ul 
-                for error in errors 
-                    li!=error.msg
+            div(class="errors-wrapper")
+                ol
+                    for error in errors 
+                        li(class="error-message")= "- " + error.msg

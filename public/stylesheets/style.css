@@ -44,6 +44,7 @@ a {
   height: 100%;
   width: 100%;
   padding-top: 25px;
+  overflow: scroll;
 }
 
 /* || Navigation Bar Styling */
@@ -149,6 +150,12 @@ a {
   font-weight: bold;
 }
 
+.message-container-right-lower {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 /* || Login Form Styling */
 .log-in-form {
   display: flex;
@@ -185,4 +192,31 @@ a {
   border-top: 3px groove black;
   padding-top: 25px;
   font-size: 32px;
+}
+
+/* || Error message styling. */
+.errors-wrapper {
+  margin-top: 25px;
+}
+
+.error-message {
+  font-size: 18px;
+  margin-top: 5px;
+}
+
+/* || Footer styling */
+.footer {
+  display: flex;
+  justify-content: center;
+  background-color: var(--background-charcoal);
+  color: white;
+}
+
+.footer-link {
+  text-decoration: none;
+  color: white;
+}
+
+.footer-link:hover {
+  transform: scale(1.2);
 }

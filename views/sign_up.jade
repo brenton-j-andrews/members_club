@@ -34,7 +34,8 @@ block content
                 button(type="submit" class="form-button") Create Account
 
         //- If errors, display below.
-        if errors
-            ul 
-                for error in errors 
-                    li=error.msg
+        if errors 
+            div(class="errors-wrapper")
+                ol
+                    for error in errors 
+                        li(class="error-message")= "- " + error.msg

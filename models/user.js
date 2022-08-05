@@ -8,12 +8,5 @@ let UserSchema = new Schema({
     isAdmin : {type: Boolean, required: true}
 })
 
-// Generate virtual URL property for user page.
-UserSchema
-.virtual('url')
-.get(function() {
-    return "/user/" + this._id;
-});
-
 // Export model.
 module.exports = mongoose.model('User', UserSchema);

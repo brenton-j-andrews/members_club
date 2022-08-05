@@ -56,9 +56,9 @@ block content
               else
                 p Posted by Anonymous...
 
-              //- if (user!== undefined && user.isAdmin)
-              div(class="delete-message")
-                form(action='/' method='POST')
-                  input#message_id(type="hidden", name="message_id" required="true", value=message._id)
-                  button(type="submit") Delete Message
-              
+              if (user!== undefined && user.isAdmin)
+                div(class="delete-message")
+                  form(action='/' method='POST')
+                    input#message_id(type="hidden", name="message_id" required="true", value=message._id)
+                    button(type="submit") Delete Message
+                
